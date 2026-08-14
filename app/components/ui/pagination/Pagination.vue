@@ -4,7 +4,7 @@
     <button 
       @click="prevPage" 
       :disabled="currentPage === 1"
-      class="p-2 rounded-full renaissance-border glass-panel transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gold/10 dark:hover:bg-muted-gold/10 text-gold dark:text-muted-gold"
+      class="p-2 rounded-full renaissance-border glass-panel transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gold/10 dark:hover:bg-muted-gold/10 text-gold dark:text-muted-gold dark:!border-none dark:!shadow-none"
       aria-label="Previous page"
     >
       <svg xmlns="http://www.w3.org/O/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -13,7 +13,7 @@
     </button>
     
     <!-- Page Numbers -->
-    <div class="flex items-center space-x-1 font-serif text-sm relative glass-panel renaissance-border rounded-full p-1 mx-2">
+    <div class="flex items-center space-x-1 font-serif text-sm relative glass-panel renaissance-border rounded-full p-1 mx-2 dark:!border-none dark:!shadow-none">
       <!-- Sliding Bubble Background -->
       <div 
         class="absolute top-1 bottom-1 rounded-full bg-gold dark:bg-muted-gold transition-all duration-300 ease-out z-0 shadow-sm"
@@ -36,7 +36,7 @@
     <button 
       @click="nextPage" 
       :disabled="currentPage === totalPages"
-      class="p-2 rounded-full renaissance-border glass-panel transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gold/10 dark:hover:bg-muted-gold/10 text-gold dark:text-muted-gold"
+      class="p-2 rounded-full renaissance-border glass-panel transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gold/10 dark:hover:bg-muted-gold/10 text-gold dark:text-muted-gold dark:!border-none dark:!shadow-none"
       aria-label="Next page"
     >
       <svg xmlns="http://www.w3.org/O/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

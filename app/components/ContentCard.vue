@@ -1,18 +1,41 @@
 <template>
   <article 
     ref="cardRef"
-    class="p-6 md:p-8 renaissance-border glass-panel mb-8 group relative"
+    class="p-6 md:p-10 renaissance-border glass-panel mb-8 group relative overflow-hidden"
     :style="{
       transform: cardTransform,
       transition: isOutside ? 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)' : 'transform 0.1s linear',
       transformStyle: 'preserve-3d'
     }"
   >
-    
+    <!-- Corner Filigrees -->
+    <div class="absolute inset-0 pointer-events-none opacity-40 text-gold dark:text-muted-gold" style="transform: translateZ(5px);">
+      <!-- Top Left -->
+      <svg class="absolute top-2 left-2 w-12 h-12" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+        <path d="M10,50 C10,25 25,10 50,10 M20,40 C20,30 30,20 40,20" />
+        <circle cx="15" cy="15" r="3" fill="currentColor" stroke="none" />
+      </svg>
+      <!-- Top Right -->
+      <svg class="absolute top-2 right-2 w-12 h-12 rotate-90" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+        <path d="M10,50 C10,25 25,10 50,10 M20,40 C20,30 30,20 40,20" />
+        <circle cx="15" cy="15" r="3" fill="currentColor" stroke="none" />
+      </svg>
+      <!-- Bottom Right -->
+      <svg class="absolute bottom-2 right-2 w-12 h-12 rotate-180" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+        <path d="M10,50 C10,25 25,10 50,10 M20,40 C20,30 30,20 40,20" />
+        <circle cx="15" cy="15" r="3" fill="currentColor" stroke="none" />
+      </svg>
+      <!-- Bottom Left -->
+      <svg class="absolute bottom-2 left-2 w-12 h-12 -rotate-90" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+        <path d="M10,50 C10,25 25,10 50,10 M20,40 C20,30 30,20 40,20" />
+        <circle cx="15" cy="15" r="3" fill="currentColor" stroke="none" />
+      </svg>
+    </div>
+
     <!-- Copy Button (appears on hover) -->
     <button 
       @click="copyContent"
-      class="absolute top-4 right-4 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/5 dark:bg-white/5 hover:bg-gold/20 dark:hover:bg-muted-gold/20 text-ink dark:text-offwhite cursor-pointer"
+      class="absolute top-6 right-6 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/5 dark:bg-white/5 hover:bg-gold/20 dark:hover:bg-muted-gold/20 text-ink dark:text-offwhite cursor-pointer z-50"
       :title="copied ? 'Copied!' : 'Copy content'"
       style="transform: translateZ(20px);"
     >
@@ -32,7 +55,17 @@
           <ContentRenderer :value="post" class="prose dark:prose-invert max-w-none" />
         </div>
       </blockquote>
-      <div v-if="post.author" class="mt-4 text-right font-serif text-sm opacity-80" style="transform: translateZ(15px);">
+
+      <!-- Ornate Divider -->
+      <div class="flex items-center justify-center my-6 opacity-60">
+        <div class="flex-grow border-t border-gold/30 dark:border-muted-gold/30 h-px"></div>
+        <svg class="w-6 h-6 mx-4 text-gold dark:text-muted-gold" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12,2 L15,12 L12,22 L9,12 Z" />
+        </svg>
+        <div class="flex-grow border-t border-gold/30 dark:border-muted-gold/30 h-px"></div>
+      </div>
+
+      <div v-if="post.author" class="text-right font-serif text-sm opacity-80" style="transform: translateZ(15px);">
         — {{ post.author }}
       </div>
       <div v-if="post.date" class="mt-2 text-right text-xs font-serif opacity-60 uppercase tracking-widest" style="transform: translateZ(10px);">
@@ -42,18 +75,27 @@
     
     <!-- Post Layout -->
     <div v-else class="post-content" style="transform: translateZ(10px);">
-      <h2 class="text-2xl mb-2 text-ink dark:text-muted-gold font-bold" style="transform: translateZ(20px);">{{ post.title }}</h2>
-      <div class="text-xs font-serif opacity-60 mb-6 uppercase tracking-widest">{{ formatDate(post.date) }}</div>
+      <h2 class="text-3xl mb-2 text-ink dark:text-muted-gold font-decorative tracking-wide" style="transform: translateZ(20px);">{{ post.title }}</h2>
+      <div class="text-xs font-serif opacity-60 uppercase tracking-widest">{{ formatDate(post.date) }}</div>
       
-      <!-- Content styling with a drop cap for the first letter -->
-      <div ref="contentNode" class="prose dark:prose-invert max-w-none font-sans text-ink dark:text-offwhite prose-p:first-of-type:first-letter:text-5xl prose-p:first-of-type:first-letter:font-serif prose-p:first-of-type:first-letter:text-ink dark:prose-p:first-of-type:first-letter:text-muted-gold prose-p:first-of-type:first-letter:mr-2 prose-p:first-of-type:first-letter:float-left">
+      <!-- Ornate Divider -->
+      <div class="flex items-center justify-center my-6 opacity-60">
+        <div class="flex-grow border-t border-gold/30 dark:border-muted-gold/30 h-px"></div>
+        <svg class="w-6 h-6 mx-4 text-gold dark:text-muted-gold" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12,2 L15,12 L12,22 L9,12 Z" />
+        </svg>
+        <div class="flex-grow border-t border-gold/30 dark:border-muted-gold/30 h-px"></div>
+      </div>
+
+      <!-- Content styling with elegant drop cap for the first letter -->
+      <div ref="contentNode" class="prose dark:prose-invert max-w-none font-sans text-ink dark:text-offwhite drop-cap relative z-10">
         <ContentRenderer :value="post" />
       </div>
     </div>
     
     <!-- Tags (Shared) -->
-    <div v-if="post.tags && post.tags.length" class="mt-6 flex flex-wrap gap-2" style="transform: translateZ(15px);">
-      <span v-for="tag in post.tags" :key="tag" class="text-xs font-serif px-3 py-1 rounded-full bg-sepia/5 dark:bg-offwhite/5 border border-sepia/10 dark:border-offwhite/10 opacity-70">
+    <div v-if="post.tags && post.tags.length" class="mt-8 flex flex-wrap gap-2 relative z-10" style="transform: translateZ(15px);">
+      <span v-for="tag in post.tags" :key="tag" class="text-xs font-serif px-3 py-1 rounded-full bg-sepia/5 dark:bg-offwhite/5 border border-sepia/10 dark:border-offwhite/10 opacity-70 hover:opacity-100 hover:border-gold/50 transition-colors">
         #{{ tag }}
       </span>
     </div>

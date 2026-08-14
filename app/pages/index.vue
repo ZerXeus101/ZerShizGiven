@@ -2,7 +2,7 @@
   <div class="relative">
     <!-- Filter Bar -->
     <div ref="filterBarRef" class="flex justify-center mb-10 z-20 relative">
-      <div class="glass-panel renaissance-border rounded-full px-2 py-1 flex space-x-2 relative">
+      <div class="glass-panel renaissance-border rounded-full px-2 py-1 flex space-x-2 relative dark:!border-none dark:!shadow-none">
         <!-- Sliding Bubble Background -->
         <div 
           class="absolute top-1 bottom-1 rounded-full bg-gold/20 dark:bg-muted-gold/20 transition-all duration-300 ease-out z-0"
