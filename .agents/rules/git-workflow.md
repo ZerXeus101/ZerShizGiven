@@ -52,12 +52,15 @@ All commit messages must strictly adhere to the [Conventional Commits v1.0.0 spe
 - Do not capitalize the first letter.
 - No dot (.) at the end.
 
-## 3. Workflow Execution
+## 3. Workflow Execution (Commit & Push Policy)
 
 1. Check out `main` and pull the latest changes.
 2. Create your branch following the naming conventions: `git checkout -b feature/example`.
-3. Implement the required changes.
-4. Stage your files: `git add <files>`.
-5. Commit using the conventional commit format: `git commit -m "feat: implement example feature"`.
-6. Push your branch to the remote repository: `git push -u origin feature/example`.
-7. Advise the user to review the code and open a Pull Request.
+3. Implement the required changes iteratively.
+4. **DO NOT COMMIT OR PUSH AUTOMATICALLY.** Leave changes unstaged during the development process.
+5. Only stage, commit, and push your work when:
+   - The user explicitly instructs you to commit/push.
+   - Or, you and the user jointly agree that the feature/chore is completely finished and successfully verified.
+6. When authorized, commit using the conventional commit format: `git commit -m "feat: implement example feature"`.
+7. Push your branch to the remote repository: `git push -u origin feature/example`.
+8. Advise the user to review the code and open a Pull Request.

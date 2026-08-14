@@ -21,7 +21,7 @@
       No writings found.
     </div>
     <div v-else class="space-y-4">
-      <ContentCard v-for="post in filteredPosts" :key="post._path" :post="post" />
+      <ContentCard v-for="post in filteredPosts" :key="post.path" :post="post" />
     </div>
   </div>
 </template>
@@ -29,9 +29,10 @@
 <script setup>
 const activeFilter = ref('all')
 
-const { data: posts, pending } = await useAsyncData('content', () => 
-  queryContent('/').sort({ date: -1 }).find()
-)
+const { data: posts, pending } = await useAsyncData('content', async () => {
+  const allPosts = await queryCollection('content').all()
+  return allPosts.sort((a, b) => new Date(b.meta?.date || 0) - new Date(a.meta?.date || 0))
+})
 
 const filteredPosts = computed(() => {
   if (!posts.value) return []
@@ -39,9 +40,9 @@ const filteredPosts = computed(() => {
   
   return posts.value.filter(post => {
     // If we're looking for posts, exclude quotes
-    if (activeFilter.value === 'posts') return post.type !== 'quote'
+    if (activeFilter.value === 'posts') return post.meta?.type !== 'quote'
     // If we're looking for quotes, only include quotes
-    if (activeFilter.value === 'quotes') return post.type === 'quote'
+    if (activeFilter.value === 'quotes') return post.meta?.type === 'quote'
     return true
   })
 })
