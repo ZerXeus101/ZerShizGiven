@@ -19,7 +19,7 @@
 
     <!-- Background 3D Elements -->
     <ClientOnly>
-      <Background3D />
+      <Background3D v-if="animationsEnabled" />
     </ClientOnly>
 
     <!-- Floating 3D Title (Top Left) -->
@@ -34,8 +34,9 @@
       </span>
     </h1>
 
-    <!-- Floating Theme Toggle (Top Right) -->
-    <div class="fixed top-6 right-6 md:top-10 md:right-10 z-50">
+    <!-- Floating Controls (Top Right) -->
+    <div class="fixed top-6 right-6 md:top-10 md:right-10 z-50 flex items-center space-x-2">
+      <SettingsMenu />
       <ThemeToggle />
     </div>
 
@@ -54,6 +55,8 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useWindowScroll, useWindowSize } from '@vueuse/core'
+
+const { animationsEnabled } = useSettings()
 
 const { y } = useWindowScroll()
 const { height: windowHeight } = useWindowSize()
