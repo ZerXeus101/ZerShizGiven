@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  /* Typography */
+  --font-sans: 'Lora', serif;
+  --font-serif: 'Cinzel', serif;
+  
+  /* Light Mode Colors */
+  --color-parchment: #F4F1EA;
+  --color-sepia: #2C241B;
+  --color-gold: #D4AF37;
+  --color-ink: #3A2F25;
+  
+  /* Dark Mode Colors */
+  --color-charcoal: #1A1A1A;
+  --color-velvet: #2A2426;
+  --color-offwhite: #EAEAEA;
+  --color-muted-gold: #C5A059;
+}
+
+/* Global Styles */
+@layer base {
+  body {
+    /* Default (Light) Theme */
+    @apply bg-parchment text-sepia font-sans antialiased selection:bg-gold/30 selection:text-ink;
+    /* Smooth transitions for theme switching */
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+  
+  /* Dark Mode Override */
+  .dark body {
+    @apply bg-charcoal text-offwhite selection:bg-muted-gold/30 selection:text-offwhite;
+  }
+  
+  /* Headings universally use the serif font */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-semibold tracking-wide;
+  }
+}
+
+/* Custom Component Utilities */
+@layer components {
+  .renaissance-border {
+    @apply border border-gold/30 dark:border-muted-gold/20 rounded-sm;
+  }
+  
+  .glass-panel {
+    @apply bg-white/40 dark:bg-black/30 backdrop-blur-md shadow-sm border border-white/20 dark:border-black/20;
+  }
+}
