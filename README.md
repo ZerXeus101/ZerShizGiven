@@ -1,75 +1,43 @@
-# Nuxt Minimal Starter
+# ZerShizGiven
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A digital manuscript and thought gallery. This project blends classical aesthetics with modern, highly immersive web technologies like 3D WebGL backgrounds, glassmorphism UI, and momentum scrolling.
 
-## Setup
+## 🛠 Tech Stack
 
-Make sure to install dependencies:
+- **Framework**: [Nuxt 4](https://nuxt.com/) (Vue 3)
+- **Content Management**: [Nuxt Content 3](https://content.nuxt.com/) (File-based Markdown CMS)
+- **Styling & UI**: 
+  - [Tailwind CSS v4](https://tailwindcss.com/)
+  - Custom Glassmorphism UI tokens
+- **3D Immersion**:
+  - [TresJS](https://tresjs.org/) (Vue wrapper for Three.js)
+  - Custom WebGL mathematical geometries (Pyramids, Cubes, Paper Planes with particle trails)
+- **Interactivity & Motion**:
+  - [Lenis](https://lenis.studiofreight.com/) (Buttery smooth momentum scrolling)
+  - [@vueuse/core](https://vueuse.org/) (Mouse-tracking for 3D card tilt effects)
+- **Typography**: Google Fonts (Cinzel, Cinzel Decorative, Lora)
 
+## 🎨 Key Features
+- **Dynamic 3D Background**: Floating geometric shapes and paper planes powered by WebGL that scale and react to perspective.
+- **Cinematic Parallax**: Background imagery tied to scroll velocity for massive physical depth.
+- **Fluid UI**: Custom "Liquid Scrollbar" that elastically stretches based on scroll speed, and sliding pill highlight tabs.
+
+## 🚀 Setup & Development
+
+This project uses `pnpm` for package management.
+
+### Install Dependencies
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
+### Run Local Dev Server
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+pnpm run dev
 ```
+Start the development server on `http://localhost:3000`.
 
-## Production
-
-Build the application for production:
-
+### Build for Production
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+pnpm run build
 ```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
