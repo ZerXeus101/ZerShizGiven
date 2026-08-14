@@ -1,5 +1,5 @@
 ---
-date: "2026-08-09"
+date: "2026-08-09T16:20:00"
 type: "quote"
 author: "Socrates"
 tags: ["wisdom", "knowledge", "philosophy"]

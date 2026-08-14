@@ -32,6 +32,37 @@ importers:
       vue-router:
         specifier: ^5.2.0
         version: 5.2.0(@vue/compiler-sfc@3.5.41)(esbuild@0.28.2)(rolldown@1.2.4)(rollup@4.62.4)(vite@8.2.1(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.0))(vue@3.5.41(typescript@5.9.3))
+    devDependencies:
+      debug:
+        specifier: ^4.4.3
+        version: 4.4.3
+      extend:
+        specifier: ^3.0.2
+        version: 3.0.2
+      parse5:
+        specifier: ^8.0.1
+        version: 8.0.1
+      rehype-raw:
+        specifier: ^7.0.0
+        version: 7.0.0
+      remark-emoji:
+        specifier: ^5.0.2
+        version: 5.0.2
+      remark-gfm:
+        specifier: ^4.0.1
+        version: 4.0.1
+      remark-mdc:
+        specifier: ^3.11.1
+        version: 3.11.1
+      remark-rehype:
+        specifier: ^11.1.2
+        version: 11.1.2
+      unified:
+        specifier: ^11.0.5
+        version: 11.0.5
+      unist-util-visit:
+        specifier: ^5.1.0
+        version: 5.1.0
 
 packages:
 

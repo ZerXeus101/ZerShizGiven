@@ -1,5 +1,5 @@
 ---
-date: "2026-08-10"
+date: "2026-08-10T14:30:00"
 type: "quote"
 author: "Marcus Aurelius"
 tags: ["stoicism", "mindset", "philosophy"]

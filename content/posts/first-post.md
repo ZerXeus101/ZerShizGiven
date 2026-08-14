@@ -1,6 +1,6 @@
 ---
 title: "The Dawn of a New Era"
-date: "2026-08-14"
+date: "2026-08-13T10:00:00"
 type: "post"
 tags: ["philosophy", "beginnings"]
 ---
