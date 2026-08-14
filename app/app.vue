@@ -1,6 +1,8 @@
 <template>
   <div class="min-h-screen relative overflow-hidden">
-    <LiquidScrollbar />
+    <ClientOnly>
+      <LiquidScrollbar />
+    </ClientOnly>
     
     <!-- Dynamic Parallax Background Layer -->
     <div 
