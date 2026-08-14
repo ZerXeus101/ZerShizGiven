@@ -25,3 +25,5 @@ logs
 
 # Agent Context Documents
 AgentContext/
+.vercel
+
