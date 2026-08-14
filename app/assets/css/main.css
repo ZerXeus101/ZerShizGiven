@@ -5,6 +5,7 @@
   /* Typography */
   --font-sans: 'Lora', serif;
   --font-serif: 'Cinzel', serif;
+  --font-decorative: 'Cinzel Decorative', serif;
   
   /* Light Mode Colors */
   --color-parchment: #F4F1EA;
@@ -26,6 +27,17 @@
     @apply bg-parchment text-sepia font-sans antialiased selection:bg-gold/30 selection:text-ink;
     /* Smooth transitions for theme switching */
     transition: background-color 0.4s ease, color 0.4s ease;
+    
+    /* Hide native scrollbar */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
   }
   
   /* Dark Mode Override */
@@ -42,10 +54,66 @@
 /* Custom Component Utilities */
 @layer components {
   .renaissance-border {
-    @apply border border-gold/30 dark:border-muted-gold/20 rounded-sm;
+    @apply border border-gold/50 dark:border-muted-gold/30 rounded-sm relative;
+    box-shadow: inset 0 0 0 3px transparent, inset 0 0 0 4px rgba(212, 175, 55, 0.2);
+  }
+  .dark .renaissance-border {
+    box-shadow: inset 0 0 0 3px transparent, inset 0 0 0 4px rgba(197, 160, 89, 0.15);
   }
   
   .glass-panel {
-    @apply bg-white/40 dark:bg-black/30 backdrop-blur-md shadow-sm border border-white/20 dark:border-black/20;
+    @apply bg-white/10 dark:bg-black/20 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] border border-white/20 dark:border-white/5;
+  }
+
+  .drop-cap p:first-of-type::first-letter {
+    font-size: 3.75rem; /* 6xl */
+    line-height: 1;
+    float: left;
+    margin-right: 0.75rem;
+    margin-top: -0.5rem;
+    font-family: var(--font-decorative);
+    color: var(--color-gold);
+  }
+  .dark .drop-cap p:first-of-type::first-letter {
+    color: var(--color-muted-gold);
+  }
+}
+
+/* Page Transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(20px) scale(0.98);
+}
+
+/* 3D Title Entrance Animation */
+.title-entrance {
+  opacity: 0;
+  animation: swoopIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* Ensure 3D context for the text shadow depth */
+  transform-style: preserve-3d;
+  /* Layered text shadows for 3D depth effect */
+  text-shadow: 
+    1px 1px 0px rgba(0,0,0,0.2),
+    2px 2px 0px rgba(0,0,0,0.15),
+    3px 3px 0px rgba(0,0,0,0.1),
+    4px 4px 5px rgba(0,0,0,0.3);
+}
+
+@keyframes swoopIn {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) translateZ(-200px) rotateX(40deg) translateY(-50px);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) translateZ(0) rotateX(0deg) translateY(0);
+    filter: blur(0px);
   }
 }

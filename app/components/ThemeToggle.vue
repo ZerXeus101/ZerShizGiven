@@ -1,7 +1,7 @@
 <template>
   <button 
     @click="cycleTheme"
-    class="p-2 rounded-full renaissance-border glass-panel hover:bg-gold/10 dark:hover:bg-muted-gold/10 transition-colors flex items-center justify-center w-10 h-10"
+    class="p-2 rounded-full renaissance-border glass-panel hover:bg-gold/10 dark:hover:bg-muted-gold/10 transition-colors flex items-center justify-center w-10 h-10 dark:!border-none dark:!shadow-none"
     aria-label="Toggle Theme"
   >
     <!-- Sun Icon (Light Mode) -->

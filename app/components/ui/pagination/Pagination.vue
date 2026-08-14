@@ -4,7 +4,7 @@
     <button 
       @click="prevPage" 
       :disabled="currentPage === 1"
-      class="p-2 rounded-full renaissance-border glass-panel transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gold/10 dark:hover:bg-muted-gold/10 text-gold dark:text-muted-gold"
+      class="p-2 rounded-full renaissance-border glass-panel transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gold/10 dark:hover:bg-muted-gold/10 text-gold dark:text-muted-gold dark:!border-none dark:!shadow-none"
       aria-label="Previous page"
     >
       <svg xmlns="http://www.w3.org/O/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -13,13 +13,20 @@
     </button>
     
     <!-- Page Numbers -->
-    <div class="flex items-center space-x-1 font-serif text-sm">
+    <div class="flex items-center space-x-1 font-serif text-sm relative glass-panel renaissance-border rounded-full p-1 mx-2 dark:!border-none dark:!shadow-none">
+      <!-- Sliding Bubble Background -->
+      <div 
+        class="absolute top-1 bottom-1 rounded-full bg-gold dark:bg-muted-gold transition-all duration-300 ease-out z-0 shadow-sm"
+        :style="bubbleStyle"
+      ></div>
+
       <button
-        v-for="page in visiblePages"
+        v-for="(page, i) in visiblePages"
         :key="page"
+        :ref="el => { if (el) buttonRefs[i] = el }"
         @click="goToPage(page)"
-        class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
-        :class="page === currentPage ? 'bg-gold dark:bg-muted-gold text-parchment dark:text-charcoal shadow-sm' : 'hover:bg-gold/10 dark:hover:bg-muted-gold/10 text-ink dark:text-offwhite opacity-70 hover:opacity-100'"
+        class="w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300 font-semibold relative z-10"
+        :class="page === currentPage ? 'text-parchment dark:text-charcoal' : 'hover:bg-black/5 dark:hover:bg-white/5 text-sepia dark:text-offwhite opacity-90 hover:opacity-100'"
       >
         {{ page }}
       </button>
@@ -29,7 +36,7 @@
     <button 
       @click="nextPage" 
       :disabled="currentPage === totalPages"
-      class="p-2 rounded-full renaissance-border glass-panel transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gold/10 dark:hover:bg-muted-gold/10 text-gold dark:text-muted-gold"
+      class="p-2 rounded-full renaissance-border glass-panel transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gold/10 dark:hover:bg-muted-gold/10 text-gold dark:text-muted-gold dark:!border-none dark:!shadow-none"
       aria-label="Next page"
     >
       <svg xmlns="http://www.w3.org/O/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -40,6 +47,8 @@
 </template>
 
 <script setup>
+import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
+
 const props = defineProps({
   total: {
     type: Number,
@@ -56,6 +65,9 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:modelValue'])
+
+const buttonRefs = ref([])
+const bubbleStyle = ref({ width: '0px', transform: 'translateX(0px)' })
 
 const currentPage = computed({
   get: () => props.modelValue,
@@ -79,6 +91,31 @@ const visiblePages = computed(() => {
     pages.push(i)
   }
   return pages
+})
+
+const updateBubble = async () => {
+  await nextTick()
+  const activeIndex = visiblePages.value.indexOf(currentPage.value)
+  const btn = buttonRefs.value[activeIndex]
+  if (btn) {
+    bubbleStyle.value = {
+      width: `${btn.offsetWidth}px`,
+      transform: `translateX(${btn.offsetLeft - 4}px)` // -4px accounts for p-1 on parent container
+    }
+  }
+}
+
+watch([currentPage, visiblePages], () => {
+  updateBubble()
+}, { flush: 'post' })
+
+onMounted(() => {
+  setTimeout(updateBubble, 50)
+  window.addEventListener('resize', updateBubble)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateBubble)
 })
 
 const prevPage = () => {
