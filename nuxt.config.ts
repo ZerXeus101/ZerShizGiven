@@ -6,7 +6,9 @@ export default defineNuxtConfig({
   
   modules: [
     "@nuxt/content",
-    "@nuxtjs/color-mode"
+    "@nuxtjs/color-mode",
+    "@vueuse/nuxt",
+    "@tresjs/nuxt"
   ],
   
   css: ['~/assets/css/main.css'],
@@ -27,6 +29,7 @@ export default defineNuxtConfig({
   },
   
   app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       title: 'ZerShizGiven | Renaissance Quotes & Thoughts',
       link: [

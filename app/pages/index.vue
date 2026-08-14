@@ -1,16 +1,25 @@
 <template>
   <div class="relative">
     <!-- Filter Bar -->
-    <div ref="filterBarRef" class="flex justify-center mb-10 space-x-4">
-      <button 
-        v-for="filter in ['all', 'posts', 'quotes']" 
-        :key="filter"
-        @click="setFilter(filter)"
-        class="px-4 py-2 font-serif text-sm uppercase tracking-widest transition-all duration-300"
-        :class="activeFilter === filter ? 'border-b-2 border-gold dark:border-muted-gold text-gold dark:text-muted-gold' : 'opacity-60 hover:opacity-100'"
-      >
-        {{ filter }}
-      </button>
+    <div ref="filterBarRef" class="flex justify-center mb-10 z-20 relative">
+      <div class="glass-panel renaissance-border rounded-full px-2 py-1 flex space-x-2 relative">
+        <!-- Sliding Bubble Background -->
+        <div 
+          class="absolute top-1 bottom-1 rounded-full bg-gold/20 dark:bg-muted-gold/20 transition-all duration-300 ease-out z-0"
+          :style="bubbleStyle"
+        ></div>
+        
+        <button 
+          v-for="(filter, i) in ['all', 'posts', 'quotes']" 
+          :key="filter"
+          :ref="el => { if (el) buttonRefs[i] = el }"
+          @click="setFilter(filter, i)"
+          class="px-6 py-2 rounded-full font-serif text-sm uppercase tracking-widest transition-colors duration-300 relative z-10"
+          :class="activeFilter === filter ? 'text-gold dark:text-muted-gold text-shadow-sm' : 'text-ink dark:text-offwhite opacity-70 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/5'"
+        >
+          {{ filter }}
+        </button>
+      </div>
     </div>
     
     <!-- Feed -->
@@ -65,8 +74,12 @@
 
 <script setup>
 const activeFilter = ref('all')
+const activeFilterIndex = ref(0)
 const filterBarRef = ref(null)
 const showBackToTop = ref(false)
+
+const buttonRefs = ref([])
+const bubbleStyle = ref({ width: '0px', transform: 'translateX(0px)' })
 
 const currentPage = ref(1)
 const pageSize = 10
@@ -95,9 +108,21 @@ const paginatedPosts = computed(() => {
   return filteredPosts.value.slice(start, end)
 })
 
-const setFilter = (filter) => {
+const updateBubble = () => {
+  const btn = buttonRefs.value[activeFilterIndex.value]
+  if (btn) {
+    bubbleStyle.value = {
+      width: `${btn.offsetWidth}px`,
+      transform: `translateX(${btn.offsetLeft - 8}px)` // -8px accounts for the px-2 on the parent container
+    }
+  }
+}
+
+const setFilter = (filter, index = 0) => {
   activeFilter.value = filter
+  activeFilterIndex.value = index
   currentPage.value = 1 // Reset to first page when filtering
+  updateBubble()
 }
 
 // Watch for page changes to auto-scroll to the top
@@ -110,6 +135,9 @@ const scrollToTop = () => {
 }
 
 onMounted(() => {
+  setTimeout(updateBubble, 50)
+  window.addEventListener('resize', updateBubble)
+  
   if (!filterBarRef.value) return
   
   const observer = new IntersectionObserver((entries) => {
@@ -124,6 +152,7 @@ onMounted(() => {
   
   onUnmounted(() => {
     observer.disconnect()
+    window.removeEventListener('resize', updateBubble)
   })
 })
 </script>
