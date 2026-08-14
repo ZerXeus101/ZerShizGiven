@@ -31,8 +31,26 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
-      title: 'ZerShizGiven | Renaissance Quotes & Thoughts',
+      title: 'ZerShizGiven',
+      htmlAttrs: {
+        lang: 'en'
+      },
+      meta: [
+        { name: 'description', content: 'Random Brain Farts + Stolen Internet Quotes' },
+        { name: 'theme-color', content: '#1A1A1A' },
+        { property: 'og:title', content: 'ZerShizGiven' },
+        { property: 'og:description', content: 'Random Brain Farts + Stolen Internet Quotes' },
+        { property: 'og:image', content: '/backgrounds/Rebirth.jpg' },
+        { property: 'og:type', content: 'website' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'ZerShizGiven' },
+        { name: 'twitter:description', content: 'Random Brain Farts + Stolen Internet Quotes' },
+        { name: 'twitter:image', content: '/backgrounds/Rebirth.jpg' }
+      ],
       link: [
+        { rel: 'icon', type: 'image/png', href: '/icons/favicon.png' },
+        { rel: 'icon', type: 'image/x-icon', href: '/icons/favicon.ico' },
+        { rel: 'apple-touch-icon', href: '/icons/favicon.png' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {
