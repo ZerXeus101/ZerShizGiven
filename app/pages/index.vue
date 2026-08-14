@@ -5,7 +5,7 @@
       <button 
         v-for="filter in ['all', 'posts', 'quotes']" 
         :key="filter"
-        @click="activeFilter = filter"
+        @click="setFilter(filter)"
         class="px-4 py-2 font-serif text-sm uppercase tracking-widest transition-all duration-300"
         :class="activeFilter === filter ? 'border-b-2 border-gold dark:border-muted-gold text-gold dark:text-muted-gold' : 'opacity-60 hover:opacity-100'"
       >
@@ -21,7 +21,23 @@
       No writings found.
     </div>
     <div v-else class="space-y-4">
-      <ContentCard v-for="post in filteredPosts" :key="post.path" :post="post" />
+      <!-- Top Pagination -->
+      <UiPagination 
+        v-model="currentPage" 
+        :total="filteredPosts.length" 
+        :pageSize="pageSize" 
+      />
+
+      <div class="mt-4 mb-4">
+        <ContentCard v-for="post in paginatedPosts" :key="post.path" :post="post" />
+      </div>
+
+      <!-- Bottom Pagination -->
+      <UiPagination 
+        v-model="currentPage" 
+        :total="filteredPosts.length" 
+        :pageSize="pageSize" 
+      />
     </div>
 
     <!-- Scroll to Top Button -->
@@ -52,6 +68,9 @@ const activeFilter = ref('all')
 const filterBarRef = ref(null)
 const showBackToTop = ref(false)
 
+const currentPage = ref(1)
+const pageSize = 10
+
 const { data: posts, pending } = await useAsyncData('content', async () => {
   const allPosts = await queryCollection('content').all()
   return allPosts.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
@@ -68,6 +87,22 @@ const filteredPosts = computed(() => {
     if (activeFilter.value === 'quotes') return post.type === 'quote'
     return true
   })
+})
+
+const paginatedPosts = computed(() => {
+  const start = (currentPage.value - 1) * pageSize
+  const end = start + pageSize
+  return filteredPosts.value.slice(start, end)
+})
+
+const setFilter = (filter) => {
+  activeFilter.value = filter
+  currentPage.value = 1 // Reset to first page when filtering
+}
+
+// Watch for page changes to auto-scroll to the top
+watch(currentPage, () => {
+  scrollToTop()
 })
 
 const scrollToTop = () => {
