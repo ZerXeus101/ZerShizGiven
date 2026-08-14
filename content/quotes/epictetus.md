@@ -1,5 +1,5 @@
 ---
-date: "2026-08-12"
+date: "2026-08-12T08:15:00"
 type: "quote"
 author: "Epictetus"
 tags: ["stoicism", "control", "philosophy"]

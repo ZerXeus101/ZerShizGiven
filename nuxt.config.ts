@@ -15,6 +15,9 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss(),
     ],
+    optimizeDeps: {
+      include: [] // Force Nuxt to stop trying to include unresolvable MDC dependencies
+    }
   },
   
   colorMode: {

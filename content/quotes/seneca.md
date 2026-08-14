@@ -1,5 +1,5 @@
 ---
-date: "2026-08-11"
+date: "2026-08-11T09:45:00"
 type: "quote"
 author: "Seneca"
 tags: ["stoicism", "time", "wisdom"]
