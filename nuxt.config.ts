@@ -28,6 +28,10 @@ export default defineNuxtConfig({
     fallback: 'light'
   },
   
+  routeRules: {
+    '/**': { prerender: true }
+  },
+  
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
