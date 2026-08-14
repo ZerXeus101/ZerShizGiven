@@ -31,10 +31,6 @@ export default defineNuxtConfig({
   routeRules: {
     '/**': { prerender: true }
   },
-
-  nitro: {
-    preset: 'vercel-static'
-  },
   
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
