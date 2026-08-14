@@ -41,3 +41,8 @@ Start the development server on `http://localhost:3000`.
 ```bash
 pnpm run build
 ```
+
+## 🗺️ Future Roadmap
+
+- **Admin Dashboard & Authentication**: Implement a secure login system and a protected dashboard route.
+- **In-App Content Editor**: Transition from manual markdown file editing to an in-app WYSIWYG/markdown editor that allows creating, editing, and deleting quotes and posts directly from the browser.
