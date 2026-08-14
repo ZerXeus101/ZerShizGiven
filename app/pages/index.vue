@@ -84,9 +84,8 @@ const bubbleStyle = ref({ width: '0px', transform: 'translateX(0px)' })
 const currentPage = ref(1)
 const pageSize = 10
 
-const { data: posts, pending } = await useAsyncData('content', async () => {
-  const allPosts = await queryCollection('content').all()
-  return allPosts.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+const { data: posts, pending } = await useAsyncData('content', () => {
+  return queryCollection('content').order('date', 'DESC').all()
 })
 
 const filteredPosts = computed(() => {
